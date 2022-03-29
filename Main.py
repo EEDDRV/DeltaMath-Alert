@@ -40,7 +40,7 @@ def Get_Data(verbose_level=0):
     if verbose_level >= 1: print('[*] Sending "get_student_details" request...')
     raw_data = session.post('https://www.deltamath.com/api/get_student_details', headers=headers, json={'student_id': None, 'termOrClass': 'current', 'version': 401})
     if verbose_level == 2: print('[*] Received "get_student_details" response...')
-    if verbose_level >= 1: print('[*] Dumping student data to "student_details.json"...')
+    return raw_data.json()
 
 def send_email(subject, body, to):
 	msg = EmailMessage()
@@ -74,5 +74,4 @@ if __name__ == "__main__":
             print("[*] Data has changed!")
             send_email("DeltaMath Alert", "Data has changed!", Config.Email_Send)
             Original_Data = Data
-
         time.sleep(10)
